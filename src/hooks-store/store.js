@@ -12,8 +12,17 @@ let listeners = [];
 let actions = {};
 
 //Name of custom hooks
-const useStore = () => {
+export const useStore = () => {
     const setState = useState(globalState)[1];
+
+    const dispatch = actionIdentifier => {
+        const newState = actions[actionIdentifier](globalState);
+        globalState = { ...globalState, ...newState };
+
+        for (const listener of listeners) {
+            listener(globalState);
+        }
+    }
 
     useEffect(() => {
         // adding a set state function to our listeners for a component that uses my custom hook  when that component mounts
@@ -24,4 +33,13 @@ const useStore = () => {
             listeners = listeners.filter(li => li !== setState);
         }
     }, [setState]);
+
+    return [globalState, dispatch];
+}
+
+export const initStore = (userActions, initialState) => {
+    if (initialState) {
+        globalState = { ...globalState, ...initialState };
+    }
+    actions = { ...actions, ...userActions };
 }
