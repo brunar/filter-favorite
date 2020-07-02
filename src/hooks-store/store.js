@@ -12,7 +12,7 @@ let listeners = [];
 let actions = {};
 
 //Name of custom hooks
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
     const setState = useState(globalState)[1];
 
     //Payload to bring another object, exemplo the id
@@ -26,14 +26,18 @@ export const useStore = () => {
     }
 
     useEffect(() => {
-        // adding a set state function to our listeners for a component that uses my custom hook  when that component mounts
-        listeners.push(setState);
+        if (shouldListen) {
+            // adding a set state function to our listeners for a component that uses my custom hook  when that component mounts
+            listeners.push(setState);
+        }
 
         //removing it when it unmount
         return () => {
-            listeners = listeners.filter(li => li !== setState);
+            if (shouldListen) {
+                listeners = listeners.filter(li => li !== setState);
+            }
         }
-    }, [setState]);
+    }, [setState, shouldListen]);
 
     return [globalState, dispatch]; //custom hook returns two things: local state and dispatch
 }

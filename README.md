@@ -22,3 +22,12 @@ Which means that every component that uses you as context will rebuild will re r
 And in general the react context API is simply not optimized and not meant to be your global state management tool in your app.
 
 `It's meant for some state like authentication status like the theme but not for all your state because of these missing optimizations and all of this missing intent behind the context API.`
+
+### In Custom Hooks the Performance of React.memo() do not work
+
+#### Example React.memo()
+React memo around design and should make sure they don't render if their props didn't change at the props for the other item certainly didn't change.
+
+They have the same title the same favorite status ends on you'll notice if we do that they still render the reason for dead is our custom hook in each product item.
+
+I'm using used store so I use my custom hook and in that custom hook we use use the state so whenever set state is called here the component that uses this hook will be re rendered makes sense it's the intended behavior it's the default behavior while we can fix this or improve this in our custom hook.
