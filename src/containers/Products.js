@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import ProductItem from '../components/Products/ProductItem';
-import { ProductsContext } from '../context/products-context';
+import { useStore } from '../hooks-store/store';
 import './Products.css';
 
 const Products = props => {
-  const productList = useContext(ProductsContext).products;//.products is name of the object in the array
+  //const [state, dispatch] = useStore();
+  const state = useStore()[0]; // no need dispatch any action here in this example
+  //and [0] just accessing the first element returned by the customs store at a custom hook because the custom hook returns two things: local state and dispatch. Only needs the state.
   return (
     <ul className="products-list">
-      {productList.map(prod => (
+      {state.products.map(prod => (
         <ProductItem
           key={prod.id}
           id={prod.id}
@@ -17,6 +19,10 @@ const Products = props => {
           isFav={prod.isFavorite}
         />
       ))}
+      {/* state.products is
+      output state products because we know there will be a product's key in our state because that's 
+      what we're setting up in the products stored J.S. file when we initialize our state then here.
+      */}
     </ul>
   );
 };

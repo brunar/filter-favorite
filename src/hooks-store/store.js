@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 // It would be exclusive to each component.
 // Each component would get its own data but managing it outside of the hook every file that imports this
 // file or something from that file gets the same shared data.
-let = globalState = {};
+let globalState = {};
 let listeners = [];
 let actions = {};
 
@@ -35,7 +35,7 @@ export const useStore = () => {
         }
     }, [setState]);
 
-    return [globalState, dispatch];
+    return [globalState, dispatch]; //custom hook returns two things: local state and dispatch
 }
 
 export const initStore = (userActions, initialState) => {
