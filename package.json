@@ -1,5 +1,6 @@
 {
   "name": "react-hooks-update",
+  "homepage": "https://www.brunajs.com/view/filter-favorite",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
